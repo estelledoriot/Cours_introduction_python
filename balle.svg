@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="560" height="180" viewBox="0 -180 560 180">
+<defs>
+</defs>
+<rect x="0" y="-180" width="560" height="180" fill="white" />
+<rect x="40" y="-120" width="40" height="90" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="60.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">0</text>
+<rect x="80" y="-108" width="40" height="78" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="100.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">1</text>
+<rect x="120" y="-102" width="40" height="72" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="140.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">2</text>
+<rect x="160" y="-90" width="40" height="60" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="180.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">3</text>
+<rect x="200" y="-90" width="40" height="60" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="220.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">4</text>
+<rect x="240" y="-84" width="40" height="54" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="260.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">5</text>
+<rect x="280" y="-78" width="40" height="48" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="300.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">6</text>
+<rect x="320" y="-96" width="40" height="66" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="340.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">7</text>
+<rect x="360" y="-96" width="40" height="66" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="380.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">8</text>
+<rect x="400" y="-90" width="40" height="60" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="420.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">9</text>
+<rect x="440" y="-84" width="40" height="54" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="460.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">10</text>
+<rect x="480" y="-132" width="40" height="102" fill="#c4687c" stroke-width="3" stroke="#555" />
+<text x="500.0" y="-21.0" font-size="20" text-anchor="middle" dy="0.4em">11</text>
+<circle cx="60.0" cy="-140" r="20" fill="#ffff00" stroke-width="3" stroke="#555">
+<animate calcMode="discrete" repeatCount="indefinite" attributeName="cy" dur="5s" values="-140;-128;-122;-110;-110;-104;-98" />
+<animate calcMode="discrete" repeatCount="indefinite" attributeName="cx" dur="5s" values="60.0;100.0;140.0;180.0;220.0;260.0;300.0" />
+</circle>
+</svg>
