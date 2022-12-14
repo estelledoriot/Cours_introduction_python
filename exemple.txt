@@ -1,0 +1,7 @@
+À titre d'auteur de contenu ou de développeur, vous devriez aujourd'hui toujours choisir l'encodage de caractère UTF-8 pour votre contenu ou vos données. Cet encodage Unicode est un bon choix, car vous pouvez utiliser un encodage unique pour composer avec presque tous les caractères que vous êtes susceptibles de rencontrer. Cela simplifie grandement la tâche. Utiliser l'Unicode dans votre système évite également de faire un suivi de différents encodages de caractères et de les convertir.
+
+Les auteurs de contenu doivent trouver comment déclarer l'encodage de caractères utilisé pour le format du document avec lequel ils travaillent.
+
+Sachez que simplement déclarer un encodage différent dans votre page ne modifiera pas les octets; vous devez aussi sauvegarder le texte dans cet encodage. Les auteurs de contenu doivent vérifier dans quel encodage leurs éditeurs ou programmes scripts sauvegardent le texte, et comment sauvegarder un texte en UTF-8. Vous pourriez aussi devoir vérifier que votre serveur prend en charge les documents utilisant les bonnes déclarations HTTP.
+
+Les développeurs doivent s'assurer que les différentes composantes du système peuvent échanger entre elles, comprendre quels encodages de caractères sont utilisés et être compatibles avec les encodages et caractères indispensables. (Idéalement, vous devriez toujours utiliser l'UTF-8 et ne plus avoir ce problème.)
