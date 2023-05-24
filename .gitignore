@@ -2,3 +2,5 @@
 .mypy_cache
 .ipynb_checkpoints
 .DS_Store
+.replit
+replit.nix
