@@ -4,3 +4,4 @@
 .DS_Store
 .replit
 replit.nix
+*.code-workspace
