@@ -1,14 +1,18 @@
-import pygame
+"""
+Simulation de transmission de maladie
+"""
+
 from random import randint
 from typing import Self
+import pygame
 
 pygame.init()
 
 largeur, hauteur = (640, 480)
 fenetre = pygame.display.set_mode((largeur, hauteur))
 fenetre.fill([0, 0, 0])
-taille = 10
 clock = pygame.time.Clock()
+TAILLE = 10
 
 
 class Balle:
@@ -22,9 +26,9 @@ class Balle:
     malade = état de la balle
     """
 
-    def __init__(self):
-        self.x: int = randint(taille, largeur - taille)
-        self.y: int = randint(taille, hauteur - taille)
+    def __init__(self) -> None:
+        self.x: int = randint(TAILLE, largeur - TAILLE)
+        self.y: int = randint(TAILLE, hauteur - TAILLE)
         self.dx: int = randint(-5, 5)
         self.dy: int = randint(-5, 5)
         self.color: tuple[int, int, int] = (
@@ -32,15 +36,17 @@ class Balle:
             randint(0, 255),
             randint(0, 255),
         )
-        self.taille: int = taille
+        self.taille: int = TAILLE
         self.malade: bool = False
 
-    def contamine(self, b: Self):
-        if self.malade or b.malade:
+    def contamine(self, other: Self) -> None:
+        """lorsqu'une balle malade rentre en collision avec une autre balle, elle la contamine"""
+        if self.malade or other.malade:
             self.malade = True
-            b.malade = True
+            other.malade = True
 
     def move(self) -> None:
+        """gère le mouvement et les collisions entre les balles"""
         # mouvement de la balle
         self.x += self.dx
         self.y += self.dy
@@ -52,18 +58,19 @@ class Balle:
             self.dy *= -1
 
         # collision de la balle self avec les autres balles
-        for b in liste_balles:
+        for balle in liste_balles:
             if (
-                (b.x - self.x) ** 2 + (b.y - self.y) ** 2
-            ) ** 0.5 < self.taille + b.taille:
+                (balle.x - self.x) ** 2 + (balle.y - self.y) ** 2
+            ) ** 0.5 < self.taille + balle.taille:
                 # on échange les dx
-                b.dx, self.dx = self.dx, b.dx
+                balle.dx, self.dx = self.dx, balle.dx
                 # on échange les dy
-                b.dy, self.dy = self.dy, b.dy
+                balle.dy, self.dy = self.dy, balle.dy
                 # les balles se contaminent
-                self.contamine(b)
+                self.contamine(balle)
 
     def draw(self) -> None:
+        """affiche la balle à l'écran"""
         pygame.draw.circle(
             fenetre, self.color, (self.x, self.y), self.taille, 2 if self.malade else 0
         )
@@ -71,9 +78,9 @@ class Balle:
 
 liste_balles = [Balle() for _ in range(50)]
 liste_balles[0].malade = True
-en_cours = True
+RUNNING = True
 
-while en_cours:
+while RUNNING:
     fenetre.fill([0, 0, 0])
     for b in liste_balles:
         b.move()
@@ -81,10 +88,10 @@ while en_cours:
 
     pygame.display.flip()
 
-    # routine pour pouvoir fermer «proprement» la fenêtre Pygame
+    # fermeture de la fenêtre
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            en_cours = False
+            RUNNING = False
 
     clock.tick(60)
 
