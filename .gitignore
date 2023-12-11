@@ -5,3 +5,4 @@
 .replit
 replit.nix
 *.code-workspace
+*/__pycache__
