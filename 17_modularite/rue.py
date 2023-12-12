@@ -22,7 +22,8 @@ LARGEUR = 140
 HAUT_NIV = 60
 TAILLE_FEN = 30
 LARG_PORTE = 30
-HAUTEUR = 50  # ?
+HAUT_PORTE = 50
+POS_FENETRE = 20
 NB_BAR = 5  # nb barreaux balcon
 turtle = Turtle()
 
@@ -75,7 +76,7 @@ def fenetre(x: Coord, y: Coord) -> None:
         x est l'abcisse du centre de la fenêtre
         y est l'ordonnée du sol du niveau de la fenetre
     """
-    rectangle(x, y, TAILLE_FEN, TAILLE_FEN)
+    rectangle(x, y + POS_FENETRE, TAILLE_FEN, TAILLE_FEN)
 
 
 def porte1(x: Coord, y: Coord, couleur: Couleur) -> None:
@@ -88,7 +89,7 @@ def porte1(x: Coord, y: Coord, couleur: Couleur) -> None:
     """
     turtle.begin_fill()
     turtle.fillcolor(couleur)
-    rectangle(x, y, LARG_PORTE, HAUTEUR)
+    rectangle(x, y, LARG_PORTE, HAUT_PORTE)
     turtle.end_fill()
 
 
@@ -264,3 +265,4 @@ def dessin(nb_maisons: int) -> None:
 if __name__ == "__main__":
     n = int(input("\n nombre de maisons ?  "))
     dessin(n)
+    tl.exitonclick()
