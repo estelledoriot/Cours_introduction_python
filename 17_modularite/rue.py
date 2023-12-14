@@ -4,16 +4,14 @@ dessine une rue aléatoire avec plusieurs immeubles
 de couleurs et de hauteurs différentes
 """
 
-from turtle import Turtle
-import turtle as tl
+import turtle
 import time
-from random import randint, choice
+from random import randint, choice, shuffle
 from typing import Callable
 
 
 # Alias de types pour clarifier le code
-Octet = int
-Couleur = tuple[Octet, Octet, Octet]
+Couleur = tuple[int, int, int]
 Coord = int
 
 # constantes imposées
@@ -23,18 +21,25 @@ HAUT_NIV = 60
 TAILLE_FEN = 30
 LARG_PORTE = 30
 HAUT_PORTE = 50
+HAUT_PORTE2 = 40
 POS_FENETRE = 20
+LARG_BALCON = TAILLE_FEN + 10
+HAUT_BALCON = TAILLE_FEN
+ECART = 10
 NB_BAR = 5  # nb barreaux balcon
-turtle = Turtle()
+COULEUR_FENETRE = (200, 200, 200)
+COULEUR_TOIT = (0, 0, 0)
 
 
 def ini_tortue(nb_maisons: int) -> None:
     """
     Place la tortue pour le début du dessin
     """
-    tl.setup(1.2 * nb_maisons * LARGEUR, NIVEAU_MAX * 1.2 * HAUT_NIV)
+    turtle.setup(1.5 * nb_maisons * LARGEUR, NIVEAU_MAX * 1.2 * HAUT_NIV * 2)
     turtle.speed(0)
     turtle.hideturtle()
+    screen = turtle.Screen()
+    screen.colormode(255)
 
 
 def couleur_aleatoire() -> Couleur:
@@ -76,7 +81,11 @@ def fenetre(x: Coord, y: Coord) -> None:
         x est l'abcisse du centre de la fenêtre
         y est l'ordonnée du sol du niveau de la fenetre
     """
+    turtle.pensize(1)
+    turtle.begin_fill()
+    turtle.fillcolor(COULEUR_FENETRE)
     rectangle(x, y + POS_FENETRE, TAILLE_FEN, TAILLE_FEN)
+    turtle.end_fill()
 
 
 def porte1(x: Coord, y: Coord, couleur: Couleur) -> None:
@@ -87,6 +96,7 @@ def porte1(x: Coord, y: Coord, couleur: Couleur) -> None:
         y est l'ordonnée du sol du niveau de la porte
         couleur : couleur de la porte
     """
+    turtle.pensize(1)
     turtle.begin_fill()
     turtle.fillcolor(couleur)
     rectangle(x, y, LARG_PORTE, HAUT_PORTE)
@@ -101,7 +111,17 @@ def porte2(x: Coord, y: Coord, couleur: Couleur) -> None:
         y est l'ordonnée du sol du niveau de la porte
         couleur : couleur de la porte
     """
-    # TODO
+    turtle.pensize(1)
+    turtle.begin_fill()
+    turtle.fillcolor(couleur)
+    trait(x - LARG_PORTE // 2, y + HAUT_PORTE2, x - LARG_PORTE // 2, y)
+    trait(x - LARG_PORTE // 2, y, x + LARG_PORTE // 2, y)
+    trait(x + LARG_PORTE // 2, y, x + LARG_PORTE // 2, y + HAUT_PORTE2)
+    turtle.setheading(90)
+    turtle.pendown()
+    turtle.circle(LARG_PORTE // 2, 180)
+    turtle.penup()
+    turtle.end_fill()
 
 
 def portes() -> list[Callable]:
@@ -120,7 +140,28 @@ def fenetre_balcon(x: Coord, y: Coord) -> None:
         x est l'abcisse du centre de la porte-fenetre-balcon
         y est l'ordonnée du sol du niveau de la porte-fenetre-balcon
     """
-    # TODO
+    turtle.pensize(1)
+    turtle.begin_fill()
+    turtle.fillcolor(COULEUR_FENETRE)
+    rectangle(x, y, TAILLE_FEN, TAILLE_FEN + POS_FENETRE)
+    turtle.end_fill()
+    turtle.pensize(2)
+    rectangle(x, y, LARG_BALCON, HAUT_BALCON)
+    turtle.pensize(1)
+    for i in range(NB_BAR):
+        trait(
+            x - LARG_BALCON // 2 + (LARG_BALCON * (i + 1)) // (NB_BAR + 1),
+            y + HAUT_BALCON,
+            x - LARG_BALCON // 2 + (LARG_BALCON * (i + 1)) // (NB_BAR + 1),
+            y,
+        )
+
+
+def fenetres() -> list[Callable]:
+    """
+    Renvoie la liste des fenetres possibles
+    """
+    return [fenetre, fenetre_balcon]
 
 
 # ----- Facade avec : couleur + 3 élts d'étages -----
@@ -134,9 +175,10 @@ def facade(x: Coord, y_sol: Coord, couleur: Couleur, niveau: int) -> None:
         couleur : couleur de la façade
         niveau : num du niveau (0 pour les rdc, ...)
     """
+    turtle.pensize(1)
     turtle.begin_fill()
     turtle.fillcolor(couleur)
-    rectangle(x, y_sol, LARGEUR, HAUT_NIV)
+    rectangle(x, y_sol + niveau * HAUT_NIV, LARGEUR, HAUT_NIV)
     turtle.end_fill()
 
 
@@ -151,7 +193,28 @@ def toit1(x: Coord, y_sol: Coord, niveau: int) -> None:
         y_sol : ordonnée du sol du la rue
         niveau : num du niveau (0 pour les rdc, ...)
     """
-    # TODO
+    turtle.pensize(1)
+    turtle.begin_fill()
+    turtle.fillcolor(COULEUR_TOIT)
+    trait(
+        x - (LARGEUR // 2 + ECART),
+        y_sol + HAUT_NIV * niveau,
+        x + (LARGEUR // 2 + ECART),
+        y_sol + HAUT_NIV * niveau,
+    )
+    trait(
+        x + (LARGEUR // 2 + ECART),
+        y_sol + HAUT_NIV * niveau,
+        x,
+        y_sol + HAUT_NIV * niveau + HAUT_NIV // 2,
+    )
+    trait(
+        x,
+        y_sol + HAUT_NIV * niveau + HAUT_NIV // 2,
+        x - (LARGEUR // 2 + ECART),
+        y_sol + HAUT_NIV * niveau,
+    )
+    turtle.end_fill()
 
 
 def toit2(x: Coord, y_sol: Coord, niveau: int) -> None:
@@ -162,7 +225,13 @@ def toit2(x: Coord, y_sol: Coord, niveau: int) -> None:
         y_sol : ordonnée du sol du la rue
         niveau : num du niveau (0 pour les rdc, ...)
     """
-    # TODO
+    turtle.pensize(10)
+    trait(
+        x - (LARGEUR // 2 + ECART),
+        y_sol + HAUT_NIV * niveau,
+        x + (LARGEUR // 2 + ECART),
+        y_sol + HAUT_NIV * niveau,
+    )
 
 
 def toits() -> list[Callable]:
@@ -183,7 +252,14 @@ def rdc(x: Coord, y_sol: Coord, c_facade: Couleur, c_porte: Couleur) -> None:
         c_facade : couleur de la façade
         c_porte : couleur de la porte
     """
-    # TODO
+    facade(x, y_sol, c_facade, 0)
+    elements = [fenetre, fenetre, choice(portes())]
+    shuffle(elements)
+    for i, action in enumerate(elements):
+        if action is fenetre:
+            action(x + (i - 1) * (TAILLE_FEN + ECART), y_sol)
+        else:
+            action(x + (i - 1) * (TAILLE_FEN + ECART), y_sol, c_porte)
 
 
 def etage(x: Coord, y_sol: Coord, couleur: Couleur, niveau: int) -> None:
@@ -194,7 +270,10 @@ def etage(x: Coord, y_sol: Coord, couleur: Couleur, niveau: int) -> None:
         couleur : couleur de la façade de l'étage
         niveau : numéro de l'étage en partant de 0 pour le rdc
     """
-    # TODO
+    facade(x, y_sol, couleur, niveau)
+    elements = [choice(fenetres()) for _ in range(3)]
+    for i, action in enumerate(elements):
+        action(x + (i - 1) * (TAILLE_FEN + ECART), y_sol + HAUT_NIV * niveau)
 
 
 def toit(x: Coord, y_sol: Coord, niveau: int) -> None:
@@ -265,4 +344,4 @@ def dessin(nb_maisons: int) -> None:
 if __name__ == "__main__":
     n = int(input("\n nombre de maisons ?  "))
     dessin(n)
-    tl.exitonclick()
+    turtle.exitonclick()
