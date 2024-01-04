@@ -1,0 +1,20 @@
+{
+  "pays": [
+    {
+      "n": "France",
+      "c": "Paris"
+    },
+    {
+      "n": "Espagne",
+      "c": "Madrid"
+    },
+    {
+      "n": "Italie",
+      "c": "Rome"
+    }
+  ],
+  "properties": {
+    "n": "nom",
+    "c": "capitale"
+  }
+}
