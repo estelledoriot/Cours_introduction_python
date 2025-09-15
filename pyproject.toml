@@ -1,0 +1,17 @@
+[project]
+name = "cours-python"
+version = "0.1.0"
+description = "Cours de python pour le lycée"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "black>=25.1.0",
+    "ipyturtle3>=0.1.4",
+    "isort>=6.0.1",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.6",
+    "metakernel>=0.30.3",
+    "pillow>=11.3.0",
+    "pygame>=2.6.1",
+    "pylint>=3.3.8",
+]

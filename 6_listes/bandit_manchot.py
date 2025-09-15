@@ -1,3 +1,8 @@
+"""
+Estelle DORIOT
+Jeu bandit manchot
+"""
+
 from random import choice
 
 symboles = "♠♥♦♣7Ω"

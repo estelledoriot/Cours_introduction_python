@@ -3,7 +3,6 @@ Simulation de transmission de maladie
 """
 
 from random import randint
-from typing import Self
 import pygame
 
 pygame.init()
@@ -39,7 +38,7 @@ class Balle:
         self.taille: int = TAILLE
         self.malade: bool = False
 
-    def contamine(self, other: Self) -> None:
+    def contamine(self, other: "Balle") -> None:
         """lorsqu'une balle malade rentre en collision avec une autre balle, elle la contamine"""
         if self.malade or other.malade:
             self.malade = True
